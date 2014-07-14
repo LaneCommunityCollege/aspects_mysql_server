@@ -1,0 +1,6 @@
+---
+# tasks file for aspects_mysql_server
+- include_vars: "{{ ansible_os_family }}.yml"
+- include: install.yml
+- include: mysql-server.yml
+- include: mysql-databases.yml

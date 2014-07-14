@@ -1,0 +1,87 @@
+---
+# file: roles/mysql/tasks/mysql-databases.yml
+
+# when changing the root password 
+- name: ensure root@localhost has password set.
+  when: aspects_mysql_server_root_password_change
+  mysql_user: 
+    state=present 
+    name=root 
+    password={{ aspects_mysql_server_root_password }} 
+    host=localhost 
+    login_user={{ aspects_mysql_server_root_user }} 
+    login_password={{ aspects_mysql_server_root_password_old }} 
+    login_host=localhost
+  tags:
+    - aspects_mysql_server
+
+- name: ensure root@127.0.0.1 has password set.
+  when: aspects_mysql_server_root_password_change
+  mysql_user: 
+    state=present 
+    name=root 
+    password={{ aspects_mysql_server_root_password }} 
+    host=127.0.0.1 
+    login_user={{ aspects_mysql_server_root_user }} 
+    login_password={{ aspects_mysql_server_root_password_old }} 
+    login_host=127.0.0.1
+  tags:
+    - aspects_mysql_server
+
+- name: ensure root@ server host name has password set.
+  when: aspects_mysql_server_root_password_change
+  mysql_user: 
+    state=present 
+    name=root 
+    password={{ aspects_mysql_server_root_password }} 
+    host={{ ansible_hostname }} 
+    login_user={{ aspects_mysql_server_root_user }} 
+    login_password={{ aspects_mysql_server_root_password_old }} 
+    login_host={{ ansible_hostname }}
+  tags:
+    - aspects_mysql_server
+
+- name: ensure root@ server host name has password set.
+  when: aspects_mysql_server_root_password_change
+  mysql_user: 
+    state=present 
+    name=root 
+    password={{ aspects_mysql_server_root_password }} 
+    host="::1" 
+    login_user={{ aspects_mysql_server_root_user }} 
+    login_password={{ aspects_mysql_server_root_password_old }} 
+    login_host="::1"
+  tags:
+    - aspects_mysql_server
+
+# create server db's
+- name: ensure mysql_databases exist
+  when: aspects_mysql_server_databases is defined
+  mysql_db: 
+    state=present 
+    name="{{ item.value.name }}" 
+    login_host="127.0.0.1" 
+    login_user="{{ aspects_mysql_server_root_user }}" 
+    login_password="{{ aspects_mysql_server_root_password }}" 
+    collation="{{ item.value.collation }}" 
+    encoding="{{ item.value.encoding }}"
+  with_dict: aspects_mysql_server_databases
+  tags:
+    - aspects_mysql_server
+    - aspects_mysql_server_databases
+
+- name: ensure database users exist
+  when: aspects_mysql_server_users is defined
+  mysql_user: 
+    state=present 
+    name={{ item.value.name }} 
+    password={{ item.value.password }} 
+    host={{ item.value.host }} 
+    priv={{ item.value.priv }} 
+    login_host={{ item.value.dbhost }} 
+    login_user={{ aspects_mysql_server_root_user }} 
+    login_password={{ aspects_mysql_server_root_password }}
+  with_dict: aspects_mysql_server_users
+  tags:
+    - aspects_mysql_server
+    - aspects_mysql_server_users

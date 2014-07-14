@@ -1,0 +1,108 @@
+---
+# defaults file for aspects_mysql_server
+
+# set to true when you are first installing mysql-server.
+aspects_mysql_server_init: false
+
+# manage the root user
+aspects_mysql_server_root_user: root
+aspects_mysql_server_root_password: ""
+aspects_mysql_server_root_password_old: ""
+# set to true when changing the root password.
+aspects_mysql_server_root_password_change: false
+
+# manage my.cnf settings
+
+aspects_mysql_server_cnf_location:
+  Debian: "/etc/mysql/my.cnf"
+  RedHat: "/etc/my.cnf"
+
+aspects_mysql_server_cnf_client:
+  port:
+   default: "port=3306"
+  socket:
+    Debian: "socket=/var/run/mysqld/mysqld.sock"
+    RedHat: "socket=/var/lib/mysql/mysql.sock"
+
+aspects_mysql_server_cnf_mysqld_safe:
+  socket:
+    Debian: "socket=/var/run/mysqld/mysqld.sock"
+  nice:
+   default: "nice=0"
+  logerror:
+    RedHat: "log-error=/var/log/mysqld.log"
+  pidfile:
+    RedHat: "pid-file=/var/run/mysqld/mysqld.pid"
+
+aspects_mysql_server_cnf_mysqld:
+  user:
+   default: "user=mysql"
+  pidfile:
+   default: "pid-file=/var/run/mysqld/mysqld.pid"
+  socket:
+    Debian: "socket=/var/run/mysqld/mysqld.sock"
+    RedHat: "socket=/var/lib/mysql/mysql.sock"
+  port:
+   default: "port=3306"
+  basedir:
+   default: "basedir=/usr"
+  datadir:
+   default: "datadir=/var/lib/mysql"
+  tmpdir:
+   default: "tmpdir=/tmp"
+  lcmessagesdir:
+   default: "lc-messages-dir=/usr/share/mysql"
+   RedHat: ""
+  skipexternallocking:
+   default: "skip-external-locking"
+  charactersetclienthandshake:
+   default: "character-set-client-handshake=FALSE"
+  charactersetserver:
+   default: "character-set-server=utf8"
+   Debian: "character-set-server=utf8mb4"
+  collationserver:
+   default: "collation-server=utf8_unicode_ci"
+   Debian: "collation-server=utf8mb4_unicode_ci"
+  initconnect:
+   default: "init-connect='SET NAMES utf8'"
+   Debian: "init-connect='SET NAMES utf8mb4'"
+  innodbfilepertable:
+   default: "innodb_file_per_table"
+  bindaddress:
+   default: "bind-address=0.0.0.0"
+  keybuffer:
+   default: "key_buffer=16M"
+  maxallowedpacket:
+   default: "max_allowed_packet=16M"
+  threadstack:
+   default: "thread_stack=192K"
+  threadcachesize:
+   default: "thread_cache_size=8"
+  myisamrecover:
+   default: "myisam-recover=BACKUP"
+  querycachelimit:
+   default: "query_cache_limit=8M"
+  querycachesize:
+   default: "query_cache_size=64M"
+  logerror:
+   default: "log_error=/var/log/mysql/error.log"
+  expirelogsdays:
+   default: "expire_logs_days=10"
+  maxbinlogsize:
+   default: "max_binlog_size=100M"
+
+aspects_mysql_server_cnf_mysqldump:
+  quick:
+    default: "quick"
+  quotenames:
+    default: "quote-names"
+  maxallowedpacket:
+    default: "max_allowed_packet=16M"
+
+aspects_mysql_server_cnf_mysql:
+  localinfile:
+    default: "local-infile=0"
+
+aspects_mysql_server_cnf_isamchk:
+  keybuffer:
+    default: "key_buffer=16M"

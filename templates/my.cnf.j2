@@ -1,0 +1,91 @@
+# {{ ansible_managed }}
+
+[client]
+{% if aspects_mysql_server_cnf_client is defined %}
+{% for line in aspects_mysql_server_cnf_client %}
+{% if aspects_mysql_server_cnf_client[line].Debian is defined and ansible_os_family == "Debian" %}
+{{ aspects_mysql_server_cnf_client[line].Debian }}
+{% elif aspects_mysql_server_cnf_client[line].RedHat is defined and ansible_os_family == "RedHat" %}
+{{ aspects_mysql_server_cnf_client[line].RedHat }}
+{% elif aspects_mysql_server_cnf_client[line].Suse is defined and ansible_os_family == "Suse" %}
+{{ aspects_mysql_server_cnf_client[line].Suse }}
+{% elif aspects_mysql_server_cnf_client[line].default is defined %}
+{{ aspects_mysql_server_cnf_client[line].default }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+[mysqld_safe]
+{% if aspects_mysql_server_cnf_mysqld_safe is defined %}
+{% for line in aspects_mysql_server_cnf_mysqld_safe %}
+{% if aspects_mysql_server_cnf_mysqld_safe[line].Debian is defined and ansible_os_family == "Debian" %}
+{{ aspects_mysql_server_cnf_mysqld_safe[line].Debian }}
+{% elif aspects_mysql_server_cnf_mysqld_safe[line].RedHat is defined and ansible_os_family == "RedHat" %}
+{{ aspects_mysql_server_cnf_mysqld_safe[line].RedHat }}
+{% elif aspects_mysql_server_cnf_mysqld_safe[line].Suse is defined and ansible_os_family == "Suse" %}
+{{ aspects_mysql_server_cnf_mysqld_safe[line].Suse }}
+{% elif aspects_mysql_server_cnf_mysqld_safe[line].default is defined %}
+{{ aspects_mysql_server_cnf_mysqld_safe[line].default }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+[mysqld]
+{% if aspects_mysql_server_cnf_mysqld is defined %}
+{% for line in aspects_mysql_server_cnf_mysqld %}
+{% if aspects_mysql_server_cnf_mysqld[line].Debian is defined and ansible_os_family == "Debian" %}
+{{ aspects_mysql_server_cnf_mysqld[line].Debian }}
+{% elif aspects_mysql_server_cnf_mysqld[line].RedHat is defined and ansible_os_family == "RedHat" %}
+{{ aspects_mysql_server_cnf_mysqld[line].RedHat }}
+{% elif aspects_mysql_server_cnf_mysqld[line].Suse is defined and ansible_os_family == "Suse" %}
+{{ aspects_mysql_server_cnf_mysqld[line].Suse }}
+{% elif aspects_mysql_server_cnf_mysqld[line].default is defined %}
+{{ aspects_mysql_server_cnf_mysqld[line].default }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+[mysqldump]
+{% if aspects_mysql_server_cnf_mysqldump is defined %}
+{% for line in aspects_mysql_server_cnf_mysqldump %}
+{% if aspects_mysql_server_cnf_mysqldump[line].Debian is defined and ansible_os_family == "Debian" %}
+{{ aspects_mysql_server_cnf_mysqldump[line].Debian }}
+{% elif aspects_mysql_server_cnf_mysqldump[line].RedHat is defined and ansible_os_family == "RedHat" %}
+{{ aspects_mysql_server_cnf_mysqldump[line].RedHat }}
+{% elif aspects_mysql_server_cnf_mysqldump[line].Suse is defined and ansible_os_family == "Suse" %}
+{{ aspects_mysql_server_cnf_mysqldump[line].Suse }}
+{% elif aspects_mysql_server_cnf_mysqldump[line].default is defined %}
+{{ aspects_mysql_server_cnf_mysqldump[line].default }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+[mysql]
+{% if aspects_mysql_server_cnf_mysql is defined %}
+{% for line in aspects_mysql_server_cnf_mysql %}
+{% if aspects_mysql_server_cnf_mysql[line].Debian is defined and ansible_os_family == "Debian" %}
+{{ aspects_mysql_server_cnf_mysql[line].Debian }}
+{% elif aspects_mysql_server_cnf_mysql[line].RedHat is defined and ansible_os_family == "RedHat" %}
+{{ aspects_mysql_server_cnf_mysql[line].RedHat }}
+{% elif aspects_mysql_server_cnf_mysql[line].Suse is defined and ansible_os_family == "Suse" %}
+{{ aspects_mysql_server_cnf_mysql[line].Suse }}
+{% elif aspects_mysql_server_cnf_mysql[line].default is defined %}
+{{ aspects_mysql_server_cnf_mysql[line].default }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+[isamchk]
+{% if aspects_mysql_server_cnf_isamchk is defined %}
+{% for line in aspects_mysql_server_cnf_isamchk %}
+{% if aspects_mysql_server_cnf_isamchk[line].Debian is defined and ansible_os_family == "Debian" %}
+{{ aspects_mysql_server_cnf_isamchk[line].Debian }}
+{% elif aspects_mysql_server_cnf_isamchk[line].RedHat is defined and ansible_os_family == "RedHat" %}
+{{ aspects_mysql_server_cnf_isamchk[line].RedHat }}
+{% elif aspects_mysql_server_cnf_isamchk[line].Suse is defined and ansible_os_family == "Suse" %}
+{{ aspects_mysql_server_cnf_isamchk[line].Suse }}
+{% elif aspects_mysql_server_cnf_isamchk[line].default is defined %}
+{{ aspects_mysql_server_cnf_isamchk[line].default }}
+{% endif %}
+{% endfor %}
+{% endif %}
