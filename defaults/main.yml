@@ -106,3 +106,17 @@ aspects_mysql_server_cnf_mysql:
 aspects_mysql_server_cnf_isamchk:
   keybuffer:
     default: "key_buffer=16M"
+
+aspects_mysql_server_packages:
+  mysqlserver:
+    state: "default"
+    Debian: "mysql-server"
+    RedHat: "mysql-server"
+  mysqlclient:
+    state: "default"
+    Debian: "mysql-client"
+    RedHat: "mysql"
+  pythonmysqldb:
+    state: "default"
+    Debian: "python-mysqldb"
+    RedHat: "MySQL-python"
