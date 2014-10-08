@@ -90,6 +90,8 @@ aspects_mysql_server_cnf_mysqld:
    default: "expire_logs_days=10"
   maxbinlogsize:
    default: "max_binlog_size=100M"
+  tableopencache:
+   default: "table_open_cache=400"
 
 aspects_mysql_server_cnf_mysqldump:
   quick:
