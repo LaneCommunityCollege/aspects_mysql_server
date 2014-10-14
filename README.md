@@ -11,8 +11,7 @@ Set ```hash_behaviour=merge``` in your ansible.cfg file.
 See the ```defaults/main.yml`` and ```vars/*``` files to see examples.
 
 # Dependencies
-
-* aspects_common_packages
+None
 
 # License
 

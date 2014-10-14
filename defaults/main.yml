@@ -1,6 +1,16 @@
 ---
 # defaults file for aspects_mysql_server
 
+aspects_mysql_server_packages:
+  pythonmysqldb:
+    state: "latest"
+    Debian: "python-mysqldb"
+    RedHat: "MySQL-python"
+  mysqlserver:
+    state: "present"
+    Debian: "mysql-server"
+    RedHat: "mysql-server"
+
 # set to true when you are first installing mysql-server.
 aspects_mysql_server_init: false
 
