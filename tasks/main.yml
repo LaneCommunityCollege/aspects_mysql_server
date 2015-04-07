@@ -1,17 +1,22 @@
 ---
 # tasks file for aspects_mysql_server
 - include_vars: "{{ ansible_os_family }}.yml"
+  when: aspects_mysql_server_enabled
   tags:
     - aspects_mysql_server
 - include: installPackages.yml
+  when: aspects_mysql_server_enabled
   tags:
   - aspects_mysql_server
 - include: install.yml
+  when: aspects_mysql_server_enabled
   tags:
   - aspects_mysql_server
 - include: mysql-server.yml
+  when: aspects_mysql_server_enabled
   tags:
   - aspects_mysql_server
 - include: mysql-databases.yml
+  when: aspects_mysql_server_enabled
   tags:
   - aspects_mysql_server
