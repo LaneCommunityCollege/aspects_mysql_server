@@ -20,3 +20,9 @@
   when: aspects_mysql_server_enabled
   tags:
   - aspects_mysql_server
+
+- include: changeRootPassword.yml
+  when: aspects_mysql_server_root_password_change
+  tags:
+  - aspects_mysql_server
+  - aspects_mysql_server_change_root_password

@@ -11,24 +11,30 @@ aspects_mysql_server_packages:
     Debian: "mysql-client"
     RedHat: "mysql"
   pythonmysqldb:
-    state: "latest"
+    state: "present"
     Debian: "python-mysqldb"
     RedHat: "MySQL-python"
 # set to true when you are first installing mysql-server.
-aspects_mysql_server_init: false
+aspects_mysql_server_init: False
 
 # manage the root user
 aspects_mysql_server_root_user: root
 aspects_mysql_server_root_password: ""
 aspects_mysql_server_root_password_old: ""
 # set to true when changing the root password.
-aspects_mysql_server_root_password_change: false
+aspects_mysql_server_root_password_change: False
 
 # manage my.cnf settings
 
 aspects_mysql_server_cnf_location:
   Debian: "/etc/mysql/my.cnf"
   RedHat: "/etc/my.cnf"
+
+#For cnf settings, use this form:
+# hashname:
+#   default: "setting=value"
+#   Debian: "setting=Debian specific value."
+#   RedHat: "setting=RedHat specific value."
 
 aspects_mysql_server_cnf_client:
   port:
