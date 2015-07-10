@@ -9,7 +9,7 @@
   mysql_db: 
     state=present 
     name="{{ item.value.name }}" 
-    login_host="127.0.0.1" 
+    login_host="localhost"
     login_user="{{ aspects_mysql_server_root_user }}" 
     login_password="{{ aspects_mysql_server_root_password }}" 
     collation="{{ item.value.collation }}" 
@@ -27,7 +27,7 @@
     password={{ item.value.password }} 
     host={{ item.value.host }} 
     priv={{ item.value.priv }} 
-    login_host={{ item.value.dbhost }} 
+    login_host="localhost"
     login_user={{ aspects_mysql_server_root_user }} 
     login_password={{ aspects_mysql_server_root_password }}
   with_dict: aspects_mysql_server_users
