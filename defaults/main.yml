@@ -99,6 +99,8 @@ aspects_mysql_server_cnf_mysqld:
    default: "thread_cache_size=8"
   myisamrecover:
    default: "myisam-recover=BACKUP"
+  querycachetype:
+    default: "query_cache_type = 1"
   querycachelimit:
    default: "query_cache_limit=8M"
   querycachesize:
