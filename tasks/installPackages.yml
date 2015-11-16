@@ -1,13 +1,13 @@
 ---
 - name: Debian - Install python-apt for use with ansible apt modules.
-  when: ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian" or ansible_os_family == "Linuxmint"
   apt: pkg=python-apt state=latest update_cache="yes" cache_valid_time="86400"
   tags:
     - aspects_mysql_server
     - aspects_mysql_server_package_install
 
 - name: Debian - Install mysql_server packages with apt
-  when: ansible_os_family == "Debian" and item.value.state != 'default' and item.value.state != 'purged' and item.value.Debian is defined
+  when: (ansible_os_family == "Debian" or ansible_os_family == "Linuxmint") and item.value.state != 'default' and item.value.state != 'purged' and item.value.Debian is defined
   apt: pkg={{ item.value.Debian }} state={{ item.value.state }} update_cache="yes" cache_valid_time="86400"
   with_dict: aspects_mysql_server_packages
   tags:
