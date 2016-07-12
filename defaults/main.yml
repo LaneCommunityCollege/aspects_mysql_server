@@ -23,7 +23,7 @@ aspects_mysql_server_root_password: ""
 aspects_mysql_server_root_password_old: ""
 # set to true when changing the root password.
 aspects_mysql_server_root_password_change: False
-
+aspects_mysql_server_root_login_host: 127.0.0.1
 # manage my.cnf settings
 
 aspects_mysql_server_cnf_location:
