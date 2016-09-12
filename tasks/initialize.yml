@@ -1,0 +1,82 @@
+---
+- name: RedHat - run mysql_install_db on initialization
+  when: ansible_os_family == "RedHat" and aspects_mysql_server_init
+  shell: "/usr/bin/mysql_install_db --user=mysql --force"
+  tags:
+    - aspects_mysql_server
+
+- name: RedHat - restart mysql after mysql_install_db is run
+  when: ansible_os_family == "RedHat" and aspects_mysql_server_init
+  shell: "/etc/init.d/mysqld restart"
+  tags:
+    - aspects_mysql_server
+
+# for the first run, assume root password is empty.
+- name: create aspectsadmin user.
+  when: aspects_mysql_server_init
+  mysql_user:
+    state: "present"
+    name: "aspectsadmin"
+    password: "{{ aspects_mysql_server_aspectsadmin_password }}"
+    host: "localhost"
+    priv: "*.*:ALL,GRANT"
+  tags:
+    - aspects_mysql_server
+
+- name: Include manageRootUsers.yml
+  when: aspects_mysql_server_init
+  include: manageRootUsers.yml
+  tags:
+    - aspects_mysql_server
+
+# - name: ensure root@localhost has password set.
+#   when: aspects_mysql_server_init
+#   mysql_user:
+#     state: "present"
+#     name: "root"
+#     password: "{{ aspects_mysql_server_root_password }}"
+#     host: "localhost"
+#     login_user: "aspectsadmin"
+#     login_password: "{{ aspects_mysql_server_aspectsadmin_password }}"
+#     login_host: "localhost"
+#   tags:
+#     - aspects_mysql_server
+
+# - name: ensure root@127.0.0.1 has password set.
+#   when: aspects_mysql_server_init
+#   mysql_user:
+#     state: "present"
+#     name: "root"
+#     password: "{{ aspects_mysql_server_root_password }}"
+#     host: "127.0.0.1"
+#     login_user: "aspectsadmin"
+#     login_password: "{{ aspects_mysql_server_aspectsadmin_password }}"
+#     login_host: "localhost"
+#   tags:
+#     - aspects_mysql_server
+
+# - name: ensure root@::1 is absent.
+#   when: aspects_mysql_server_init
+#   mysql_user:
+#     state: "absent"
+#     name: "root"
+#     password: "{{ aspects_mysql_server_root_password }}"
+#     host: "::1"
+#     login_user: "aspectsadmin"
+#     login_password: "{{ aspects_mysql_server_aspectsadmin_password }}"
+#     login_host: "localhost"
+#   tags:
+#     - aspects_mysql_server
+
+# - name: ensure root@ server host name is absent
+#   when: aspects_mysql_server_init
+#   mysql_user:
+#     state: "absent"
+#     name: "root"
+#     password: "{{ aspects_mysql_server_root_password }}"
+#     host: "{{ ansible_hostname }}"
+#     login_user: "aspectsadmin"
+#     login_password: "{{ aspects_mysql_server_aspectsadmin_password }}"
+#     login_host: "localhost"
+#   tags:
+#     - aspects_mysql_server

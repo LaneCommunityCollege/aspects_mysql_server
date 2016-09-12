@@ -1,29 +1,39 @@
 ---
-# tasks file for aspects_mysql_server
 - include_vars: "{{ ansible_os_family }}.yml"
   when: aspects_mysql_server_enabled
   tags:
     - aspects_mysql_server
+    - aspects_mysql_server_mycnf
+
 - include: installPackages.yml
   when: aspects_mysql_server_enabled
   tags:
   - aspects_mysql_server
-- include: install.yml
-  when: aspects_mysql_server_enabled
+
+- include: initialize.yml
+  when: aspects_mysql_server_enabled and aspects_mysql_server_init
   tags:
   - aspects_mysql_server
 
-- include: changeRootPassword.yml
-  when: aspects_mysql_server_root_password_change
+- include: changeAspectsadminPassword.yml
+  when: aspects_mysql_server_enabled and aspects_mysql_server_aspectsadmin_password_change
+  tags:
+  - aspects_mysql_server
+  - aspects_mysql_server_change_aspectsadmin_password
+
+- name: Include manageRootUsers.yml
+  when: aspects_mysql_server_enabled and aspects_mysql_server_root_password_change
+  include: manageRootUsers.yml
   tags:
   - aspects_mysql_server
   - aspects_mysql_server_change_root_password
 
-- include: mysql-server.yml
+- include: configure.yml
   when: aspects_mysql_server_enabled
   tags:
   - aspects_mysql_server
-- include: mysql-databases.yml
+
+- include: manageDBandUsers.yml
   when: aspects_mysql_server_enabled
   tags:
   - aspects_mysql_server

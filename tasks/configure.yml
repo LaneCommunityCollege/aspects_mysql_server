@@ -1,0 +1,61 @@
+---
+# file: roles/mysql/tasks/mysql-server.yml
+- name: Debian - Set my.cnf template
+  when: ansible_os_family ==  "Debian"
+  template:
+    src: "templates/my.cnf.j2"
+    dest: "{{ aspects_mysql_server_cnf_location.Debian }}"
+    owner: "root"
+    group: "root"
+    mode: "0600"
+  notify: restart mysql
+  tags:
+    - aspects_mysql_server
+    - aspects_mysql_server_mycnf
+
+- name: RedHat - Set my.cnf template
+  when: ansible_os_family ==  "RedHat"
+  template:
+    src: "templates/my.cnf.j2"
+    dest: "{{ aspects_mysql_server_cnf_location.RedHat }}"
+    owner: "root"
+    group: "root"
+    mode: "0600"
+  notify: restart mysql
+  tags:
+    - aspects_mysql_server
+    - aspects_mysql_server_mycnf
+
+- name: stat /etc/apparmor.d/disable/usr.sbin.mysqld
+  when: ansible_os_family ==  "Debian"
+  stat:
+    path: "/etc/apparmor.d/disable/usr.sbin.mysqld"
+  register: apparmordisabledstat
+  tags:
+  - aspects_mysql_server
+
+- name: Debian - Disable Apparmor for mysql
+  when: ansible_os_family ==  "Debian" and
+        apparmordisabledstat.stat.exists == False
+  file:
+    state: "link"
+    src: "/etc/apparmor.d/usr.sbin.mysqld"
+    path: "/etc/apparmor.d/disable/usr.sbin.mysqld"
+  tags:
+    - aspects_mysql_server
+
+- name: stat /etc/apparmor.d/usr.sbin.mysqld
+  when: ansible_os_family ==  "Debian"
+  stat:
+    path: "/etc/apparmor.d/usr.sbin.mysqld"
+  register: apparmordstat
+  tags:
+  - aspects_mysql_server
+
+- name: remove apparmor mysql profile
+  when: ansible_os_family ==  "Debian" and
+        apparmordstat.stat.exists == True and
+        apparmordisabledstat.stat.exists == False
+  command: /sbin/apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
+  tags:
+  - aspects_mysql_server

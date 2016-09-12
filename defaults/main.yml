@@ -17,14 +17,27 @@ aspects_mysql_server_packages:
 # set to true when you are first installing mysql-server.
 aspects_mysql_server_init: False
 
-# manage the root user
-aspects_mysql_server_root_user: root
+# manage the root users
+aspects_mysql_server_root_users:
+  atlocalhost:
+    state: "present"
+    hostname: "localhost"
+  atloopback:
+    state: "present"
+    hostname: "127.0.0.1"
+  atipv6loopback:
+    state: "present"
+    hostname: "::1"
+
 aspects_mysql_server_root_password: ""
-aspects_mysql_server_root_password_old: ""
+aspects_mysql_server_aspectsadmin_password: ""
+aspects_mysql_server_aspectsadmin_password_change: False
 # set to true when changing the root password.
 aspects_mysql_server_root_password_change: False
-aspects_mysql_server_root_login_host: 127.0.0.1
+aspects_mysql_server_root_login_host: "localhost"
 # manage my.cnf settings
+
+aspects_mysql_server_restart_on_config_change: False
 
 aspects_mysql_server_cnf_location:
   Debian: "/etc/mysql/my.cnf"

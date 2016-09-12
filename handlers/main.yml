@@ -1,13 +1,30 @@
 ---
 # handlers file for aspects_mysql_server
 - name: restart mysql
-  service: name={{ aspects_mysql_server_service_name }} state=restarted enabled=yes
+  when: aspects_mysql_server_restart_on_config_change
+  service:
+    name: "{{ aspects_mysql_server_service_name }}"
+    state: restarted
+    enabled: yes
+  tags:
+  - aspects_mysql_server
+  - aspects_mysql_server_mycnf
 
 - name: start mysql
-  service: name={{ aspects_mysql_server_service_name }} state=started enabled=yes
+  when: aspects_mysql_server_restart_on_config_change
+  service:
+    name: "{{ aspects_mysql_server_service_name }}"
+    state: started
+    enabled: yes
+  tags:
+  - aspects_mysql_server
+  - aspects_mysql_server_mycnf
 
 - name: stop mysql
-  service: name={{ aspects_mysql_server_service_name }} state=stopped enabled=no
-
-- name: remove apparmor mysql profile
-  command: sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
+  service:
+    name: "{{ aspects_mysql_server_service_name }}"
+    state: stopped
+    enabled: no
+  tags:
+  - aspects_mysql_server
+  - aspects_mysql_server_mycnf
