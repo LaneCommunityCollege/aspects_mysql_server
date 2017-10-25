@@ -103,7 +103,7 @@ aspects_mysql_server_cnf_mysqld:
   bindaddress:
    default: "bind-address=0.0.0.0"
   keybuffer:
-   default: "key_buffer=16M"
+   default: "key_buffer_size=16M"
   maxallowedpacket:
    default: "max_allowed_packet=16M"
   threadstack:
