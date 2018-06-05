@@ -1,21 +1,39 @@
 ---
 # defaults file for aspects_mysql_server
 aspects_mysql_server_enabled: False
-aspects_mysql_server_packages:
+aspects_packages_enabled: True
+aspects_packages_packages:
   mysqlserver:
     state: "present"
-    Debian: "mysql-server"
-    RedHat: "mysql-server"
+    Ubuntu:
+      1404: "mysql-server"
+      1604: "mysql-server"
+    CentOS:
+      7: "mariadb-server"
+    Debian:
+      9: "mysql-server"
   mysqlclient:
     state: "present"
-    Debian: "mysql-client"
-    RedHat: "mysql"
+    Ubuntu:
+      1404: "mysql-client"
+      1604: "mysql-client"
+    Debian:
+      9: "mysql-client"
+    CentOS:
+      7: "mariadb"
   pythonmysqldb:
     state: "present"
-    Debian: "python-mysqldb"
-    RedHat: "MySQL-python"
+    Ubuntu:
+      1404: "python-mysqldb"
+      1604: "python-mysqldb"
+    Debian:
+      9: "python-mysqldb"
+    CentOS:
+      7: "MySQL-python"
 # set to true when you are first installing mysql-server.
 aspects_mysql_server_init: False
+
+aspects_mysql_server_disable_apparmor: True
 
 # manage the root users
 aspects_mysql_server_root_users:

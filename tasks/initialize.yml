@@ -2,12 +2,16 @@
 - name: RedHat - run mysql_install_db on initialization
   when: ansible_os_family == "RedHat" and aspects_mysql_server_init
   shell: "/usr/bin/mysql_install_db --user=mysql --force"
+  register: redhatmysqlinstalldbran
   tags:
     - aspects_mysql_server
 
+# notify waits too long to run the restart.
 - name: RedHat - restart mysql after mysql_install_db is run
-  when: ansible_os_family == "RedHat" and aspects_mysql_server_init
-  shell: "/etc/init.d/mysqld restart"
+  when: ansible_os_family == "RedHat" and
+        aspects_mysql_server_init and
+        redhatmysqlinstalldbran is defined
+  shell: "systemctl restart mariadb.service"
   tags:
     - aspects_mysql_server
 
