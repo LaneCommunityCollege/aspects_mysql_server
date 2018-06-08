@@ -1,10 +1,4 @@
 ---
-- name: "Include needed variables based on OS family."
-  include_vars: "{{ ansible_os_family }}.yml"
-  tags:
-    - aspects_mysql_server
-    - aspects_mysql_server_mycnf
-
 - name: manage AppArmor settings.
   when: ansible_apparmor.status == "enabled" and
         aspects_mysql_server_disable_apparmor
