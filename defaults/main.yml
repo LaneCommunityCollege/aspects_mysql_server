@@ -122,7 +122,6 @@ aspects_mysql_server_configuration:
     default-character-set:
       enabled: True
       value:
-        default: "utf8mb4"
         Debian:
           stretch: "utf8mb4"
     basedir:
@@ -196,7 +195,6 @@ aspects_mysql_server_configuration:
     default-character-set:
       enabled: True
       value:
-        default: "utf8mb4"
         Debian:
           stretch: "utf8mb4"
     socket:

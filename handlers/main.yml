@@ -3,7 +3,7 @@
 - name: restart mysql
   when: aspects_mysql_server_restart_on_config_change
   service:
-    name: "{{ aspects_mysql_server_service_name }}"
+    name: "{% if ansible_os_family == 'Debian' %}mysql{% elif ansible_os_family == 'RedHat' %}mariadb{% else %}mysql{% endif %}"
     state: restarted
     enabled: yes
   tags:
@@ -13,7 +13,7 @@
 - name: start mysql
   when: aspects_mysql_server_restart_on_config_change
   service:
-    name: "{{ aspects_mysql_server_service_name }}"
+    name: "{% if ansible_os_family == 'Debian' %}mysql{% elif ansible_os_family == 'RedHat' %}mariadb{% else %}mysql{% endif %}"
     state: started
     enabled: yes
   tags:
@@ -22,7 +22,7 @@
 
 - name: stop mysql
   service:
-    name: "{{ aspects_mysql_server_service_name }}"
+    name: "{% if ansible_os_family == 'Debian' %}mysql{% elif ansible_os_family == 'RedHat' %}mariadb{% else %}mysql{% endif %}"
     state: stopped
     enabled: no
   tags:
