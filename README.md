@@ -85,13 +85,6 @@ If you wish to set a value only for a specific OS, you may simply specify that O
 #### Variables with no value
 Some MySQL variables have no values. For example `skip_log_error`. If you need to set one of these variables, simply set the value to `aspects_novalue`. The template will then only add the key.
 
-### `aspects_packages_enabled`
-Boolean. Whether the tasks in the aspects_packages role should be run or not.
-
-Default: `True`
-
-Set to `False` if you are managing the MySQL packages outside of this role.
-
 ### `aspects_packages_packages`
 A dictionary/hash of packages to install. See the aspects_packages readme for details.
 \
