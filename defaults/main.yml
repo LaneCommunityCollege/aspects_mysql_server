@@ -22,12 +22,10 @@ aspects_mysql_server_root_users:
 # and you didn't see the information in the README about them.
 #aspects_mysql_server_root_password: ""
 #aspects_mysql_server_aspectsadmin_password: ""
-#aspects_mysql_server_aspectsadmin_password_change: False
+aspects_mysql_server_aspectsadmin_password_change: False
 
 # set to true when changing the root password.
-#aspects_mysql_server_root_password_change: False
-
-aspects_mysql_server_root_login_host: "localhost"
+aspects_mysql_server_root_password_change: False
 
 aspects_mysql_server_restart_on_config_change: False
 
@@ -43,174 +41,174 @@ aspects_mysql_server_cnf_path: "{% if ansible_os_family == 'Debian' %}/etc/mysql
 # When all values were the same, the default was left as is.
 # When there was a difference, the differing value was set for the appropriate OS.
 aspects_mysql_server_configuration:
-      mysqld_safe:
-        socket:
-          enabled: True
-          value:
-            default: "/var/run/mysqld/mysqld.sock"
-            Debian:
-              stretch: "/var/run/mysqld/mysqld.sock"
-            CentOS:
-              7: ""
-            Ubuntu:
-              trusty: "/var/run/mysqld/mysqld.sock"
-              xenial: "/var/run/mysqld/mysqld.sock"
-        nice:
-          enabled: True
-          value:
-            default: "0"
-        log-error:
-          enabled: True
-          value:
-            CentOS:
-              7: "/var/log/mariadb/mariadb.log"
-        pid-file:
-          enabled: True
-          value:
-            CentOS:
-              7: "/var/run/mariadb/mariadb.pid"
-        skip_log_error:
-          enabled: True
-          value:
-            Debian:
-              stretch: "aspects_novalue"
-        syslog:
-          enabled: True
-          value:
-            Debian:
-              stretch: "aspects_novalue"
-            Ubuntu:
-              trusty: "aspects_novalue"
-              xenial: "aspects_novalue"
-      mysqld:
-        bind-address:
-          enabled: True
-          value:
-            default: "127.0.0.1"
-        user:
-          enabled: True
-          value:
-            default: "mysql"
-        pid-file:
-          enabled: True
-          value:
-            default: "/var/run/mysqld/mysqld.pid"
-            Debian:
-              stretch: ""
-            CentOS:
-              7: ""
-            Ubuntu:
-              trusty: "/var/run/mysqld/mysqld.pid"
-              xenial: "/var/run/mysqld/mysqld.pid"
-        socket:
-          enabled: True
-          value:
-            default: "/var/run/mysqld/mysqld.sock"
-            Debian:
-              stretch: ""
-            CentOS:
-              7: "/var/lib/mysql/mysql.sock"
-            Ubuntu:
-              trusty: "/var/run/mysqld/mysqld.sock"
-              xenial: "/var/run/mysqld/mysqld.sock"
-        symbolic-links:
-          enabled: True
-          value:
-            default: "0"
-        port:
-          enabled: True
-          value:
-            default: "3306"
-        default-character-set:
-          enabled: True
-          value:
-            default: "utf8mb4"
-            Debian:
-              stretch: "utf8mb4"
-        basedir:
-          enabled: True
-          value:
-            default: "/usr"
-        datadir:
-          enabled: True
-          value:
-            default: "/var/lib/mysql"
-        lc-messages-dir:
-          enabled: True
-          value:
-            default: "/usr/share/mysql"
-        skip-external-locking:
-          enabled: True
-          value:
-            default: "aspects_novalue"
-        key_buffer:
-          enabled: True
-          value:
-            Ubuntu:
-              trusty: "16M"
-        key_buffer_size:
-          enabled: True
-          value:
-            default: "16M"
-        max_allowed_packet:
-          enabled: True
-          value:
-            default: "16M"
-        thread_stack:
-          enabled: True
-          value:
-            default: "192K"
-        thread_cache_size:
-          enabled: True
-          value:
-            default: "8"
-        myisam-recover-options:
-          enabled: True
-          value:
-            default: "BACKUP"
-        query_cache_limit:
-          enabled: True
-          value:
-            default: "1M"
-        query_cache_size:
-          enabled: True
-          value:
-            default: "16M"
-        log_error:
-          enabled: True
-          value:
-            default: "/var/log/mysql/error.log"
-        expire_logs_days:
-          enabled: True
-          value:
-            default: "10"
-        max_binlog_size:
-          enabled: True
-          value:
-            default: "100M"
-        tmpdir:
-          enabled: True
-          value:
-            default: "/tmp"
-            Ubuntu:
-              xenial: "/tmp"
-      client:
-        default-character-set:
-          enabled: True
-          value:
-            default: "utf8mb4"
-            Debian:
-              stretch: "utf8mb4"
-        socket:
-          enabled: True
-          value:
-            Ubuntu:
-              trusty: "/var/run/mysqld/mysqld.sock"
-        port:
-          enabled: True
-          value:
-            Ubuntu:
-              trusty: "3306"
+  mysqld_safe:
+    socket:
+      enabled: True
+      value:
+        default: "/var/run/mysqld/mysqld.sock"
+        Debian:
+          stretch: "/var/run/mysqld/mysqld.sock"
+        CentOS:
+          7: "/var/lib/mysql/mysql.sock"
+        Ubuntu:
+          trusty: "/var/run/mysqld/mysqld.sock"
+          xenial: "/var/run/mysqld/mysqld.sock"
+    nice:
+      enabled: True
+      value:
+        default: "0"
+    log-error:
+      enabled: True
+      value:
+        CentOS:
+          7: "/var/log/mariadb/mariadb.log"
+    pid-file:
+      enabled: True
+      value:
+        CentOS:
+          7: "/var/run/mariadb/mariadb.pid"
+    skip_log_error:
+      enabled: True
+      value:
+        Debian:
+          stretch: "aspects_novalue"
+    syslog:
+      enabled: True
+      value:
+        Debian:
+          stretch: "aspects_novalue"
+        Ubuntu:
+          trusty: "aspects_novalue"
+          xenial: "aspects_novalue"
+  mysqld:
+    bind-address:
+      enabled: True
+      value:
+        default: "127.0.0.1"
+    user:
+      enabled: True
+      value:
+        default: "mysql"
+    pid-file:
+      enabled: True
+      value:
+        default: "/var/run/mysqld/mysqld.pid"
+        Debian:
+          stretch: "/var/run/mysqld/mysqld.pid"
+        CentOS:
+          7: "/var/run/mariadb/mariadb.pid"
+        Ubuntu:
+          trusty: "/var/run/mysqld/mysqld.pid"
+          xenial: "/var/run/mysqld/mysqld.pid"
+    socket:
+      enabled: True
+      value:
+        default: "/var/run/mysqld/mysqld.sock"
+        Debian:
+          stretch: "/var/run/mysqld/mysqld.sock"
+        CentOS:
+          7: "/var/lib/mysql/mysql.sock"
+        Ubuntu:
+          trusty: "/var/run/mysqld/mysqld.sock"
+          xenial: "/var/run/mysqld/mysqld.sock"
+    symbolic-links:
+      enabled: True
+      value:
+        default: "0"
+    port:
+      enabled: True
+      value:
+        default: "3306"
+    default-character-set:
+      enabled: True
+      value:
+        default: "utf8mb4"
+        Debian:
+          stretch: "utf8mb4"
+    basedir:
+      enabled: True
+      value:
+        default: "/usr"
+    datadir:
+      enabled: True
+      value:
+        default: "/var/lib/mysql"
+    lc-messages-dir:
+      enabled: True
+      value:
+        default: "/usr/share/mysql"
+    skip-external-locking:
+      enabled: True
+      value:
+        default: "aspects_novalue"
+    key_buffer:
+      enabled: True
+      value:
+        Ubuntu:
+          trusty: "16M"
+    key_buffer_size:
+      enabled: True
+      value:
+        default: "16M"
+    max_allowed_packet:
+      enabled: True
+      value:
+        default: "16M"
+    thread_stack:
+      enabled: True
+      value:
+        default: "192K"
+    thread_cache_size:
+      enabled: True
+      value:
+        default: "8"
+    myisam-recover-options:
+      enabled: True
+      value:
+        default: "BACKUP"
+    query_cache_limit:
+      enabled: True
+      value:
+        default: "1M"
+    query_cache_size:
+      enabled: True
+      value:
+        default: "16M"
+    log_error:
+      enabled: True
+      value:
+        default: "/var/log/mysql/error.log"
+    expire_logs_days:
+      enabled: True
+      value:
+        default: "10"
+    max_binlog_size:
+      enabled: True
+      value:
+        default: "100M"
+    tmpdir:
+      enabled: True
+      value:
+        default: "/tmp"
+        Ubuntu:
+          xenial: "/tmp"
+  client:
+    default-character-set:
+      enabled: True
+      value:
+        default: "utf8mb4"
+        Debian:
+          stretch: "utf8mb4"
+    socket:
+      enabled: True
+      value:
+        Ubuntu:
+          trusty: "/var/run/mysqld/mysqld.sock"
+    port:
+      enabled: True
+      value:
+        Ubuntu:
+          trusty: "3306"
 
 aspects_packages_enabled: True
 aspects_packages_packages:
