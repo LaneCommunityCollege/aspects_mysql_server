@@ -1,6 +1,13 @@
 ---
 - name: Run role tasks
-  when: aspects_mysql_server_enabled
+  when: aspects_mysql_server_enabled and not aspects_mysql_server_packages is defined
   import_tasks: "init.yml"
+  tags:
+  - aspects_mysql_server
+
+- name: "aspects_mysql_server_packages is defined."
+  when: aspects_mysql_server_packages is defined
+  debug:
+    msg: "aspects_mysql_server_packages is defined. This likely means your configuration has not been updated to the new structure. See the README."
   tags:
   - aspects_mysql_server

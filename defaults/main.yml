@@ -1,6 +1,217 @@
 ---
-# defaults file for aspects_mysql_server
 aspects_mysql_server_enabled: False
+
+# set to true when you are first installing mysql-server.
+aspects_mysql_server_init: False
+
+# List the default mysql superusers so they can be secured.
+aspects_mysql_server_root_users:
+  atlocalhost:
+    state: "present"
+    hostname: "localhost"
+  atloopback:
+    state: "present"
+    hostname: "127.0.0.1"
+  atipv6loopback:
+    state: "present"
+    hostname: "::1"
+
+# These variables must be set to something.
+# They are listed here in the comments so that
+# they are not missed if you ran into errors due to them
+# and you didn't see the information in the README about them.
+#aspects_mysql_server_root_password: ""
+#aspects_mysql_server_aspectsadmin_password: ""
+#aspects_mysql_server_aspectsadmin_password_change: False
+
+# set to true when changing the root password.
+#aspects_mysql_server_root_password_change: False
+
+aspects_mysql_server_root_login_host: "localhost"
+
+aspects_mysql_server_restart_on_config_change: False
+
+aspects_mysql_server_cnf_path: "{% if ansible_os_family == 'Debian' %}/etc/mysql/my.cnf{% elif ansible_os_family == 'RedHat' %}/etc/my.cnf{% endif %}"
+
+# The following values were taken from the configuration present after installing
+# mysql server for the first time on vagrant instances of these boxes:
+# * bento/ubuntu-16.04 (virtualbox, 201803.24.0)
+# * ubuntu/trusty64    (virtualbox, 20180604.0.0)
+# * centos/7           (virtualbox, 1804.02)
+# * debian/stretch64   (virtualbox, 9.4.0)
+#
+# When all values were the same, the default was left as is.
+# When there was a difference, the differing value was set for the appropriate OS.
+aspects_mysql_server_configuration:
+      mysqld_safe:
+        socket:
+          enabled: True
+          value:
+            default: "/var/run/mysqld/mysqld.sock"
+            Debian:
+              stretch: "/var/run/mysqld/mysqld.sock"
+            CentOS:
+              7: ""
+            Ubuntu:
+              trusty: "/var/run/mysqld/mysqld.sock"
+              xenial: "/var/run/mysqld/mysqld.sock"
+        nice:
+          enabled: True
+          value:
+            default: "0"
+        log-error:
+          enabled: True
+          value:
+            CentOS:
+              7: "/var/log/mariadb/mariadb.log"
+        pid-file:
+          enabled: True
+          value:
+            CentOS:
+              7: "/var/run/mariadb/mariadb.pid"
+        skip_log_error:
+          enabled: True
+          value:
+            Debian:
+              stretch: "aspects_novalue"
+        syslog:
+          enabled: True
+          value:
+            Debian:
+              stretch: "aspects_novalue"
+            Ubuntu:
+              trusty: "aspects_novalue"
+              xenial: "aspects_novalue"
+      mysqld:
+        bind-address:
+          enabled: True
+          value:
+            default: "127.0.0.1"
+        user:
+          enabled: True
+          value:
+            default: "mysql"
+        pid-file:
+          enabled: True
+          value:
+            default: "/var/run/mysqld/mysqld.pid"
+            Debian:
+              stretch: ""
+            CentOS:
+              7: ""
+            Ubuntu:
+              trusty: "/var/run/mysqld/mysqld.pid"
+              xenial: "/var/run/mysqld/mysqld.pid"
+        socket:
+          enabled: True
+          value:
+            default: "/var/run/mysqld/mysqld.sock"
+            Debian:
+              stretch: ""
+            CentOS:
+              7: "/var/lib/mysql/mysql.sock"
+            Ubuntu:
+              trusty: "/var/run/mysqld/mysqld.sock"
+              xenial: "/var/run/mysqld/mysqld.sock"
+        symbolic-links:
+          enabled: True
+          value:
+            default: "0"
+        port:
+          enabled: True
+          value:
+            default: "3306"
+        default-character-set:
+          enabled: True
+          value:
+            default: "utf8mb4"
+            Debian:
+              stretch: "utf8mb4"
+        basedir:
+          enabled: True
+          value:
+            default: "/usr"
+        datadir:
+          enabled: True
+          value:
+            default: "/var/lib/mysql"
+        lc-messages-dir:
+          enabled: True
+          value:
+            default: "/usr/share/mysql"
+        skip-external-locking:
+          enabled: True
+          value:
+            default: "aspects_novalue"
+        key_buffer:
+          enabled: True
+          value:
+            Ubuntu:
+              trusty: "16M"
+        key_buffer_size:
+          enabled: True
+          value:
+            default: "16M"
+        max_allowed_packet:
+          enabled: True
+          value:
+            default: "16M"
+        thread_stack:
+          enabled: True
+          value:
+            default: "192K"
+        thread_cache_size:
+          enabled: True
+          value:
+            default: "8"
+        myisam-recover-options:
+          enabled: True
+          value:
+            default: "BACKUP"
+        query_cache_limit:
+          enabled: True
+          value:
+            default: "1M"
+        query_cache_size:
+          enabled: True
+          value:
+            default: "16M"
+        log_error:
+          enabled: True
+          value:
+            default: "/var/log/mysql/error.log"
+        expire_logs_days:
+          enabled: True
+          value:
+            default: "10"
+        max_binlog_size:
+          enabled: True
+          value:
+            default: "100M"
+        tmpdir:
+          enabled: True
+          value:
+            default: "/tmp"
+            Ubuntu:
+              xenial: "/tmp"
+      client:
+        default-character-set:
+          enabled: True
+          value:
+            default: "utf8mb4"
+            Debian:
+              stretch: "utf8mb4"
+        socket:
+          enabled: True
+          value:
+            Ubuntu:
+              trusty: "/var/run/mysqld/mysqld.sock"
+        port:
+          enabled: True
+          value:
+            Ubuntu:
+              trusty: "3306"
+
 aspects_packages_enabled: True
 aspects_packages_packages:
   mysqlserver:
@@ -30,133 +241,7 @@ aspects_packages_packages:
       9: "python-mysqldb"
     CentOS:
       7: "MySQL-python"
-# set to true when you are first installing mysql-server.
-aspects_mysql_server_init: False
 
+# Disable the apparmor mysql profile by default.
+# Set to False if you are managing the profile some other way.
 aspects_mysql_server_disable_apparmor: True
-
-# manage the root users
-aspects_mysql_server_root_users:
-  atlocalhost:
-    state: "present"
-    hostname: "localhost"
-  atloopback:
-    state: "present"
-    hostname: "127.0.0.1"
-  atipv6loopback:
-    state: "present"
-    hostname: "::1"
-
-aspects_mysql_server_root_password: ""
-aspects_mysql_server_aspectsadmin_password: ""
-aspects_mysql_server_aspectsadmin_password_change: False
-# set to true when changing the root password.
-aspects_mysql_server_root_password_change: False
-aspects_mysql_server_root_login_host: "localhost"
-# manage my.cnf settings
-
-aspects_mysql_server_restart_on_config_change: False
-
-aspects_mysql_server_cnf_location:
-  Debian: "/etc/mysql/my.cnf"
-  RedHat: "/etc/my.cnf"
-
-#For cnf settings, use this form:
-# hashname:
-#   default: "setting=value"
-#   Debian: "setting=Debian specific value."
-#   RedHat: "setting=RedHat specific value."
-
-aspects_mysql_server_cnf_client:
-  port:
-   default: "port=3306"
-  socket:
-    Debian: "socket=/var/run/mysqld/mysqld.sock"
-    RedHat: "socket=/var/lib/mysql/mysql.sock"
-
-aspects_mysql_server_cnf_mysqld_safe:
-  socket:
-    Debian: "socket=/var/run/mysqld/mysqld.sock"
-  nice:
-   default: "nice=0"
-  logerror:
-    RedHat: "log-error=/var/log/mysqld.log"
-  pidfile:
-    RedHat: "pid-file=/var/run/mysqld/mysqld.pid"
-
-aspects_mysql_server_cnf_mysqld:
-  user:
-   default: "user=mysql"
-  pidfile:
-   default: "pid-file=/var/run/mysqld/mysqld.pid"
-  socket:
-    Debian: "socket=/var/run/mysqld/mysqld.sock"
-    RedHat: "socket=/var/lib/mysql/mysql.sock"
-  port:
-   default: "port=3306"
-  basedir:
-   default: "basedir=/usr"
-  datadir:
-   default: "datadir=/var/lib/mysql"
-  tmpdir:
-   default: "tmpdir=/tmp"
-  lcmessagesdir:
-   default: "lc-messages-dir=/usr/share/mysql"
-   RedHat: ""
-  skipexternallocking:
-   default: "skip-external-locking"
-  charactersetclienthandshake:
-   default: "character-set-client-handshake=FALSE"
-  charactersetserver:
-   default: "character-set-server=utf8"
-   Debian: "character-set-server=utf8mb4"
-  collationserver:
-   default: "collation-server=utf8_unicode_ci"
-   Debian: "collation-server=utf8mb4_unicode_ci"
-  initconnect:
-   default: "init-connect='SET NAMES utf8'"
-   Debian: "init-connect='SET NAMES utf8mb4'"
-  innodbfilepertable:
-   default: "innodb_file_per_table"
-  bindaddress:
-   default: "bind-address=0.0.0.0"
-  keybuffer:
-   default: "key_buffer_size=16M"
-  maxallowedpacket:
-   default: "max_allowed_packet=16M"
-  threadstack:
-   default: "thread_stack=192K"
-  threadcachesize:
-   default: "thread_cache_size=8"
-  myisamrecover:
-   default: ""
-  querycachetype:
-    default: "query_cache_type = 1"
-  querycachelimit:
-   default: "query_cache_limit=8M"
-  querycachesize:
-   default: "query_cache_size=64M"
-  logerror:
-   default: "log_error=/var/log/mysql/error.log"
-  expirelogsdays:
-   default: "expire_logs_days=10"
-  maxbinlogsize:
-   default: "max_binlog_size=100M"
-  tableopencache:
-   default: "table_open_cache=400"
-
-aspects_mysql_server_cnf_mysqldump:
-  quick:
-    default: "quick"
-  quotenames:
-    default: "quote-names"
-  maxallowedpacket:
-    default: "max_allowed_packet=16M"
-
-aspects_mysql_server_cnf_mysql:
-  localinfile:
-    default: "local-infile=0"
-
-aspects_mysql_server_cnf_isamchk:
-  keybuffer:
-    default: "key_buffer=16M"

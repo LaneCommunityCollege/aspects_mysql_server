@@ -1,12 +1,9 @@
 ---
-- include_vars: "{{ ansible_os_family }}.yml"
+- name: "Include needed variables based on OS family."
+  include_vars: "{{ ansible_os_family }}.yml"
   tags:
     - aspects_mysql_server
     - aspects_mysql_server_mycnf
-#
-#- include: installPackages.yml
-#  tags:
-#  - aspects_mysql_server
 
 - name: manage AppArmor settings.
   when: ansible_apparmor.status == "enabled" and
@@ -15,28 +12,25 @@
   tags:
   - aspects_mysql_server
 
-- include: initialize.yml
+- name: "Import tasks to initialize a new server."
+  import_tasks: initialize.yml
   when: aspects_mysql_server_init
   tags:
   - aspects_mysql_server
 
-- include: changeAspectsadminPassword.yml
+- name: "Import tasks to change the aspectsadmin user password."
+  import_tasks: changeAspectsadminPassword.yml
   when: aspects_mysql_server_aspectsadmin_password_change
   tags:
   - aspects_mysql_server
   - aspects_mysql_server_change_aspectsadmin_password
 
-- name: Include manageRootUsers.yml
-  when: aspects_mysql_server_root_password_change
-  include: manageRootUsers.yml
-  tags:
-  - aspects_mysql_server
-  - aspects_mysql_server_change_root_password
-
-- include: configure.yml
+- name: "Import tasks to configure the server."
+  import_tasks: configure.yml
   tags:
   - aspects_mysql_server
 
-- include: manageDBandUsers.yml
+- name: "Import tasks to manage databases and users."
+  import_tasks: manageDBandUsers.yml
   tags:
   - aspects_mysql_server

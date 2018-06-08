@@ -1,26 +1,14 @@
 ---
 # file: roles/mysql/tasks/mysql-server.yml
-- name: Debian - Set my.cnf template
-  when: ansible_os_family ==  "Debian"
-  template:
-    src: "templates/my.cnf.j2"
-    dest: "{{ aspects_mysql_server_cnf_location.Debian }}"
-    owner: "root"
-    group: "root"
-    mode: "0600"
-  notify: restart mysql
-  tags:
-    - aspects_mysql_server
-    - aspects_mysql_server_mycnf
 
-- name: RedHat - Set my.cnf template
-  when: ansible_os_family ==  "RedHat"
+- name: Set my.cnf template
   template:
     src: "templates/my.cnf.j2"
-    dest: "{{ aspects_mysql_server_cnf_location.RedHat }}"
+    dest: "{{ aspects_mysql_server_cnf_path }}"
     owner: "root"
     group: "root"
     mode: "0600"
+#    validate: "mysqld --defaults-file=%s --verbose --help"
   notify: restart mysql
   tags:
     - aspects_mysql_server
