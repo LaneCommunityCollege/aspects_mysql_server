@@ -208,7 +208,6 @@ aspects_mysql_server_configuration:
         Ubuntu:
           trusty: "3306"
 
-aspects_packages_enabled: True
 aspects_packages_packages:
   mysqlserver:
     state: "present"
