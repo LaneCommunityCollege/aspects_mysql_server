@@ -2,25 +2,25 @@
 - name: manage AppArmor settings.
   when: ansible_apparmor.status == "enabled" and
         aspects_mysql_server_disable_apparmor
-  import_tasks: "apparmor.yml"
+  include_tasks: "apparmor.yml"
   tags:
   - aspects_mysql_server
 
 - name: "Import tasks to initialize a new server."
-  import_tasks: initialize.yml
+  include_tasks: initialize.yml
   when: aspects_mysql_server_init
   tags:
   - aspects_mysql_server
 
 - name: "Import tasks to change the aspectsadmin user password."
-  import_tasks: changeAspectsadminPassword.yml
+  include_tasks: changeAspectsadminPassword.yml
   when: aspects_mysql_server_aspectsadmin_password_change
   tags:
   - aspects_mysql_server
   - aspects_mysql_server_change_aspectsadmin_password
 
 - name: "Import tasks to configure the server."
-  import_tasks: configure.yml
+  include_tasks: configure.yml
   tags:
   - aspects_mysql_server
 

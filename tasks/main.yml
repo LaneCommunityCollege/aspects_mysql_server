@@ -1,7 +1,7 @@
 ---
 - name: Run role tasks
   when: aspects_mysql_server_enabled and not aspects_mysql_server_packages is defined
-  import_tasks: "init.yml"
+  include_tasks: "init.yml"
   tags:
   - aspects_mysql_server
 
