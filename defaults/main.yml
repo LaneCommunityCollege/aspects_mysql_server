@@ -214,27 +214,36 @@ aspects_packages_packages:
     Ubuntu:
       1404: "mysql-server"
       1604: "mysql-server"
+      1804: "mysql-server"
     CentOS:
       7: "mariadb-server"
     Debian:
       9: "mysql-server"
+    OracleLinux:
+      7: "mariadb-server"
   mysqlclient:
     state: "present"
     Ubuntu:
       1404: "mysql-client"
       1604: "mysql-client"
+      1804: "mysql-client"
     Debian:
       9: "mysql-client"
     CentOS:
+      7: "mariadb"
+    OracleLinux:
       7: "mariadb"
   pythonmysqldb:
     state: "present"
     Ubuntu:
       1404: "python-mysqldb"
       1604: "python-mysqldb"
+      1804: "python-mysqldb"
     Debian:
       9: "python-mysqldb"
     CentOS:
+      7: "MySQL-python"
+    OracleLinux:
       7: "MySQL-python"
 
 # Disable the apparmor mysql profile by default.
