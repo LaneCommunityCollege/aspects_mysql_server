@@ -63,6 +63,9 @@ The following values were taken from the configuration present after installing 
 * ubuntu/trusty64    (virtualbox, 20180604.0.0)
 * centos/7           (virtualbox, 1804.02)
 * debian/stretch64   (virtualbox, 9.4.0)
+* oraclelinux/7      (virtualbox, 0)
+  * Downloaded from [here](http://yum.oracle.com/boxes/oraclelinux/ol74/ol74.box) in August of 2018.
+* ubuntu/bionic64    (virtualbox, 20180806.0.0)
 
 When all values were the same, the default was left as is.
 
@@ -100,14 +103,12 @@ A dictionary/hash of packages to install. See the aspects_packages readme for de
 ## Example Playbook
 ```yaml
 - hosts:
-  - aspectscentos7
-  - aspectstrusty
-  - aspectsxenial
-  - aspectsstretch
+  - mysql
   vars:
     aspects_packages_enabled: True
     aspects_mysql_server_enabled: True
     aspects_mysql_server_init: False
+    aspects_mysql_server_restart_on_config_change: True
     aspects_mysql_server_root_password: "password"
     aspects_mysql_server_aspectsadmin_password: "password"
     aspects_mysql_server_aspectsadmin_password_change: False
@@ -125,7 +126,11 @@ A dictionary/hash of packages to install. See the aspects_packages readme for de
         bind-address:
           enabled: True
           value:
-            default: "123.123.123.123"
+            default: "0.0.0.0"
+            OracleLinux:
+              7: "127.0.0.1"
+            Ubuntu:
+              bionic: "localhost"
         key_buffer_size:
           enabled: True
           value:
