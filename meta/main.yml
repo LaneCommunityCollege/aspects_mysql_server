@@ -29,6 +29,5 @@ galaxy_info:
   - database
   - database:sql
 dependencies:
-  - { role: aspects_iptables, when: aspects_iptables_enabled and aspects_mysql_server_enabled}
   - { role: aspects_packages, when: aspects_packages_enabled and aspects_mysql_server_enabled}
 
