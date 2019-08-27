@@ -6,20 +6,20 @@
   tags:
   - aspects_mysql_server
 
-- name: "Import tasks to initialize a new server."
+- name: "Include tasks to initialize a new server."
   include_tasks: initialize.yml
   when: aspects_mysql_server_init
   tags:
   - aspects_mysql_server
 
-- name: "Import tasks to change the aspectsadmin user password."
+- name: "Include tasks to change the aspectsadmin user password."
   include_tasks: changeAspectsadminPassword.yml
   when: aspects_mysql_server_aspectsadmin_password_change
   tags:
   - aspects_mysql_server
   - aspects_mysql_server_change_aspectsadmin_password
 
-- name: "Import tasks to configure the server."
+- name: "Include tasks to configure the server."
   include_tasks: configure.yml
   tags:
   - aspects_mysql_server

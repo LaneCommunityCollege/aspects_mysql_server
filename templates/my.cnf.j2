@@ -12,10 +12,6 @@
 {% if ansible_distribution_release == "xenial" and var_value.value.Ubuntu.xenial is defined %}
 {{ var_key }}{% if var_value.value.Ubuntu.xenial != "aspects_novalue" %}={{ var_value.value.Ubuntu.xenial }}{% endif %}
 {# end Xenial subsection #}
-{# start Trusty section #}
-{% elif ansible_distribution_release == "trusty" and var_value.value.Ubuntu.trusty is defined %}
-{{ var_key }}{% if var_value.value.Ubuntu.trusty != "aspects_novalue" %}={{ var_value.value.Ubuntu.trusty }}{% endif %}
-{# end Trusty subsection #}
 {# start Bionic subsection #}
 {% elif ansible_distribution_release == "bionic" and var_value.value.Ubuntu.bionic is defined %}
 {{ var_key }}{% if var_value.value.Ubuntu.bionic != "aspects_novalue" %}={{ var_value.value.Ubuntu.bionic }}{% endif %}

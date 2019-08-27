@@ -60,7 +60,6 @@ A dictionary/hash of configuration groups and variables.
 
 The following values were taken from the configuration present after installing mysql server for the first time on vagrant instances of these boxes:
 * bento/ubuntu-16.04 (virtualbox, 201803.24.0)
-* ubuntu/trusty64    (virtualbox, 20180604.0.0)
 * centos/7           (virtualbox, 1804.02)
 * debian/stretch64   (virtualbox, 9.4.0)
 * oraclelinux/7      (virtualbox, 0)
@@ -120,8 +119,8 @@ A dictionary/hash of packages to install. See the aspects_packages readme for de
             Debian:
               stretch: "aspects_novalue"
             Ubuntu:
-              trusty: "aspects_novalue"
               xenial: "aspects_novalue"
+              bionic: "aspects_novalue"
       mysqld:
         bind-address:
           enabled: True

@@ -34,7 +34,6 @@ aspects_mysql_server_cnf_path: "{% if ansible_os_family == 'Debian' %}/etc/mysql
 # The following values were taken from the configuration present after installing
 # mysql server for the first time on vagrant instances of these boxes:
 # * bento/ubuntu-16.04 (virtualbox, 201803.24.0)
-# * ubuntu/trusty64    (virtualbox, 20180604.0.0)
 # * centos/7           (virtualbox, 1804.02)
 # * debian/stretch64   (virtualbox, 9.4.0)
 #
@@ -51,8 +50,8 @@ aspects_mysql_server_configuration:
         CentOS:
           7: "/var/lib/mysql/mysql.sock"
         Ubuntu:
-          trusty: "/var/run/mysqld/mysqld.sock"
           xenial: "/var/run/mysqld/mysqld.sock"
+          bionic: "/var/run/mysqld/mysqld.sock"
     nice:
       enabled: True
       value:
@@ -78,8 +77,8 @@ aspects_mysql_server_configuration:
         Debian:
           stretch: "aspects_novalue"
         Ubuntu:
-          trusty: "aspects_novalue"
           xenial: "aspects_novalue"
+          bionic: "aspects_novalue"
   mysqld:
     bind-address:
       enabled: True
@@ -98,8 +97,8 @@ aspects_mysql_server_configuration:
         CentOS:
           7: "/var/run/mariadb/mariadb.pid"
         Ubuntu:
-          trusty: "/var/run/mysqld/mysqld.pid"
           xenial: "/var/run/mysqld/mysqld.pid"
+          bionic: "/var/run/mysqld/mysqld.pid"
     socket:
       enabled: True
       value:
@@ -109,8 +108,8 @@ aspects_mysql_server_configuration:
         CentOS:
           7: "/var/lib/mysql/mysql.sock"
         Ubuntu:
-          trusty: "/var/run/mysqld/mysqld.sock"
           xenial: "/var/run/mysqld/mysqld.sock"
+          bionic: "/var/run/mysqld/mysqld.sock"
     symbolic-links:
       enabled: True
       value:
@@ -140,11 +139,6 @@ aspects_mysql_server_configuration:
       enabled: True
       value:
         default: "aspects_novalue"
-    key_buffer:
-      enabled: True
-      value:
-        Ubuntu:
-          trusty: "16M"
     key_buffer_size:
       enabled: True
       value:
@@ -197,22 +191,11 @@ aspects_mysql_server_configuration:
       value:
         Debian:
           stretch: "utf8mb4"
-    socket:
-      enabled: True
-      value:
-        Ubuntu:
-          trusty: "/var/run/mysqld/mysqld.sock"
-    port:
-      enabled: True
-      value:
-        Ubuntu:
-          trusty: "3306"
 
 aspects_packages_packages:
   mysqlserver:
     state: "present"
     Ubuntu:
-      1404: "mysql-server"
       1604: "mysql-server"
       1804: "mysql-server"
     CentOS:
@@ -224,7 +207,6 @@ aspects_packages_packages:
   mysqlclient:
     state: "present"
     Ubuntu:
-      1404: "mysql-client"
       1604: "mysql-client"
       1804: "mysql-client"
     Debian:
@@ -236,7 +218,6 @@ aspects_packages_packages:
   pythonmysqldb:
     state: "present"
     Ubuntu:
-      1404: "python-mysqldb"
       1604: "python-mysqldb"
       1804: "python-mysqldb"
     Debian:
