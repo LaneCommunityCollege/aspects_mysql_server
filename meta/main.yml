@@ -4,7 +4,7 @@ galaxy_info:
   description: Install mysql-server and manage users and databases.
   company: Lane Community College
   license: MIT
-  min_ansible_version: 2.4
+  min_ansible_version: 2.8
   #
   # Below are all platforms currently available. Just uncomment
   # the ones that apply to your role. If you don't see your
@@ -16,7 +16,6 @@ galaxy_info:
     - 7
   - name: Ubuntu
     versions:
-    - trusty
     - xenial
     - bionic
   - name: Debian
