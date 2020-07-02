@@ -1,11 +1,11 @@
 # {{ ansible_managed }}
-{% for group_key, group_value in aspects_mysql_server_configuration.iteritems() %}
+{% for group_key, group_value in aspects_mysql_server_configuration.items() %}
 
 ###############################
 # Start {{ group_key }} Section
 ###############################
 [{{ group_key }}]
-{% for var_key, var_value in group_value.iteritems() %}
+{% for var_key, var_value in group_value.items() %}
 {# start Ubuntu section #}
 {% if var_value.value.Ubuntu is defined and ansible_distribution == "Ubuntu" %}
 {# start Xenial subsection #}
