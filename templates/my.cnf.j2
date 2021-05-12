@@ -1,53 +1,53 @@
 # {{ ansible_managed }}
-{% for group_key, group_value in aspects_mysql_server_configuration.items() %}
+{% for group_key, group_value in aspects_mysql_server_configuration | dictsort(true) %}
 
 ###############################
 # Start {{ group_key }} Section
 ###############################
 [{{ group_key }}]
-{% for var_key, var_value in group_value.items() %}
+{% for var_key, var_value in group_value | dictsort(true) %}
 {# start Ubuntu section #}
-{% if var_value.value.Ubuntu is defined and ansible_distribution == "Ubuntu" %}
+{% if var_value.1.Ubuntu is defined and ansible_distribution == "Ubuntu" %}
 {# start Xenial subsection #}
-{% if ansible_distribution_release == "xenial" and var_value.value.Ubuntu.xenial is defined %}
-{{ var_key }}{% if var_value.value.Ubuntu.xenial != "aspects_novalue" %}={{ var_value.value.Ubuntu.xenial }}{% endif %}
+{% if ansible_distribution_release == "xenial" and var_value.1.Ubuntu.xenial is defined %}
+{{ var_key }}{% if var_value.1.Ubuntu.xenial != "aspects_novalue" %}={{ var_value.1.Ubuntu.xenial }}{% endif %}
 {# end Xenial subsection #}
 {# start Bionic subsection #}
-{% elif ansible_distribution_release == "bionic" and var_value.value.Ubuntu.bionic is defined %}
-{{ var_key }}{% if var_value.value.Ubuntu.bionic != "aspects_novalue" %}={{ var_value.value.Ubuntu.bionic }}{% endif %}
+{% elif ansible_distribution_release == "bionic" and var_value.1.Ubuntu.bionic is defined %}
+{{ var_key }}{% if var_value.1.Ubuntu.bionic != "aspects_novalue" %}={{ var_value.1.Ubuntu.bionic }}{% endif %}
 {# end Bionic subsection #}
 {# start Default subsection #}
-{% elif var_value.value.default is defined %}
-{{ var_key }}{% if var_value.value.default != "aspects_novalue" %}={{ var_value.value.default }}{% endif %}
+{% elif var_value.1.default is defined %}
+{{ var_key }}{% if var_value.1.default != "aspects_novalue" %}={{ var_value.1.default }}{% endif %}
 {# end Default subsection #}
 {% endif %}
 {# start Debian section #}
-{% elif var_value.value.Debian is defined and ansible_distribution == "Debian" %}
-{% if ansible_distribution_release == "stretch" and var_value.value.Debian.stretch is defined %}
-{{ var_key }}{% if var_value.value.Debian.stretch != "aspects_novalue" %}={{ var_value.value.Debian.stretch }}{% endif %}
-{% elif var_value.value.default is defined %}
-{{ var_key }}{% if var_value.value.default != "aspects_novalue" %}={{ var_value.value.default }}{% endif %}
+{% elif var_value.1.Debian is defined and ansible_distribution == "Debian" %}
+{% if ansible_distribution_release == "stretch" and var_value.1.Debian.stretch is defined %}
+{{ var_key }}{% if var_value.1.Debian.stretch != "aspects_novalue" %}={{ var_value.1.Debian.stretch }}{% endif %}
+{% elif var_value.1.default is defined %}
+{{ var_key }}{% if var_value.1.default != "aspects_novalue" %}={{ var_value.1.default }}{% endif %}
 {% endif %}
 {# end Debian section #}
 {# start CentOS section #}
-{% elif var_value.value.CentOS is defined and ansible_distribution == "CentOS"  %}
-{% if ansible_distribution_major_version == "7" and var_value.value.CentOS.7 is defined %}
-{{ var_key }}{% if var_value.value.CentOS.7 != "aspects_novalue" %}={{ var_value.value.CentOS.7 }}{% endif %}
-{% elif var_value.value.default is defined %}
-{{ var_key }}{% if var_value.value.default != "aspects_novalue" %}={{ var_value.value.default }}{% endif %}
+{% elif var_value.1.CentOS is defined and ansible_distribution == "CentOS"  %}
+{% if ansible_distribution_major_version == "7" and var_value.1.CentOS.7 is defined %}
+{{ var_key }}{% if var_value.1.CentOS.7 != "aspects_novalue" %}={{ var_value.1.CentOS.7 }}{% endif %}
+{% elif var_value.1.default is defined %}
+{{ var_key }}{% if var_value.1.default != "aspects_novalue" %}={{ var_value.1.default }}{% endif %}
 {% endif %}
 {# end CentOS section #}
 {# start OracleLinux section #}
-{% elif var_value.value.OracleLinux is defined and ansible_distribution == "OracleLinux"  %}
-{% if ansible_distribution_major_version == "7" and var_value.value.OracleLinux.7 is defined %}
-{{ var_key }}{% if var_value.value.OracleLinux.7 != "aspects_novalue" %}={{ var_value.value.OracleLinux.7 }}{% endif %}
-{% elif var_value.value.default is defined %}
-{{ var_key }}{% if var_value.value.default != "aspects_novalue" %}={{ var_value.value.default }}{% endif %}
+{% elif var_value.1.OracleLinux is defined and ansible_distribution == "OracleLinux"  %}
+{% if ansible_distribution_major_version == "7" and var_value.1.OracleLinux.7 is defined %}
+{{ var_key }}{% if var_value.1.OracleLinux.7 != "aspects_novalue" %}={{ var_value.1.OracleLinux.7 }}{% endif %}
+{% elif var_value.1.default is defined %}
+{{ var_key }}{% if var_value.1.default != "aspects_novalue" %}={{ var_value.1.default }}{% endif %}
 {% endif %}
 {# start OracleLinux section #}
 {# start Default section. If no OS specific setting is defined, this can be used. #}
-{% elif var_value.value.default is defined %}
-{{ var_key }}{% if var_value.value.default != "aspects_novalue" %}={{ var_value.value.default }}{% endif %}
+{% elif var_value.1.default is defined %}
+{{ var_key }}{% if var_value.1.default != "aspects_novalue" %}={{ var_value.1.default }}{% endif %}
 {% endif %}
 {# end Default section #}
 

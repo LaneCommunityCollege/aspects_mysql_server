@@ -203,7 +203,7 @@ aspects_packages_packages:
       7: "mariadb-server"
     Debian:
       9: "mysql-server"
-      10: "mysql-server"
+      10: "default-mysql-server"
     OracleLinux:
       7: "mariadb-server"
   mysqlclient:
@@ -214,7 +214,7 @@ aspects_packages_packages:
       2004: "mysql-client"
     Debian:
       9: "mysql-client"
-      10: "mysql-client"
+      10: "default-mysql-client"
     CentOS:
       7: "mariadb"
     OracleLinux:
@@ -224,7 +224,7 @@ aspects_packages_packages:
     Ubuntu:
       1604: "python-mysqldb"
       1804: "python-mysqldb"
-      2004: "python-mysqldb"
+      2004: "python3-mysqldb"
     Debian:
       9: "python-mysqldb"
       10: "python-mysqldb"
