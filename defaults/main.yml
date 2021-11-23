@@ -35,7 +35,7 @@ aspects_mysql_server_cnf_path: "{% if ansible_os_family == 'Debian' %}/etc/mysql
 # mysql server for the first time on vagrant instances of these boxes:
 # * bento/ubuntu-16.04 (virtualbox, 201803.24.0)
 # * centos/7           (virtualbox, 1804.02)
-# * debian/stretch64   (virtualbox, 9.4.0)
+# * debian/buster64   (virtualbox, 9.4.0)
 #
 # When all values were the same, the default was left as is.
 # When there was a difference, the differing value was set for the appropriate OS.
@@ -46,11 +46,11 @@ aspects_mysql_server_configuration:
       value:
         default: "/var/run/mysqld/mysqld.sock"
         Debian:
-          stretch: "/var/run/mysqld/mysqld.sock"
+          buster: "/var/run/mysqld/mysqld.sock"
         CentOS:
           7: "/var/lib/mysql/mysql.sock"
         Ubuntu:
-          xenial: "/var/run/mysqld/mysqld.sock"
+          focal: "/var/run/mysqld/mysqld.sock"
           bionic: "/var/run/mysqld/mysqld.sock"
     nice:
       enabled: True
@@ -70,14 +70,14 @@ aspects_mysql_server_configuration:
       enabled: True
       value:
         Debian:
-          stretch: "aspects_novalue"
+          buster: "aspects_novalue"
     syslog:
       enabled: True
       value:
         Debian:
-          stretch: "aspects_novalue"
+          buster: "aspects_novalue"
         Ubuntu:
-          xenial: "aspects_novalue"
+          focal: "aspects_novalue"
           bionic: "aspects_novalue"
   mysqld:
     bind-address:
@@ -93,22 +93,22 @@ aspects_mysql_server_configuration:
       value:
         default: "/var/run/mysqld/mysqld.pid"
         Debian:
-          stretch: "/var/run/mysqld/mysqld.pid"
+          buster: "/var/run/mysqld/mysqld.pid"
         CentOS:
           7: "/var/run/mariadb/mariadb.pid"
         Ubuntu:
-          xenial: "/var/run/mysqld/mysqld.pid"
+          focal: "/var/run/mysqld/mysqld.pid"
           bionic: "/var/run/mysqld/mysqld.pid"
     socket:
       enabled: True
       value:
         default: "/var/run/mysqld/mysqld.sock"
         Debian:
-          stretch: "/var/run/mysqld/mysqld.sock"
+          buster: "/var/run/mysqld/mysqld.sock"
         CentOS:
           7: "/var/lib/mysql/mysql.sock"
         Ubuntu:
-          xenial: "/var/run/mysqld/mysqld.sock"
+          focal: "/var/run/mysqld/mysqld.sock"
           bionic: "/var/run/mysqld/mysqld.sock"
     symbolic-links:
       enabled: True
@@ -122,7 +122,7 @@ aspects_mysql_server_configuration:
       enabled: True
       value:
         Debian:
-          stretch: "utf8mb4"
+          buster: "utf8mb4"
     basedir:
       enabled: True
       value:
@@ -184,36 +184,32 @@ aspects_mysql_server_configuration:
       value:
         default: "/tmp"
         Ubuntu:
-          xenial: "/tmp"
+          focal: "/tmp"
   client:
     default-character-set:
       enabled: True
       value:
         Debian:
-          stretch: "utf8mb4"
+          buster: "utf8mb4"
 
 aspects_packages_packages:
   mysqlserver:
     state: "present"
     Ubuntu:
-      1604: "mysql-server"
       1804: "mysql-server"
       2004: "mysql-server"
     CentOS:
       7: "mariadb-server"
     Debian:
-      9: "mysql-server"
       10: "default-mysql-server"
     OracleLinux:
       7: "mariadb-server"
   mysqlclient:
     state: "present"
     Ubuntu:
-      1604: "mysql-client"
       1804: "mysql-client"
       2004: "mysql-client"
     Debian:
-      9: "mysql-client"
       10: "default-mysql-client"
     CentOS:
       7: "mariadb"
@@ -222,11 +218,9 @@ aspects_packages_packages:
   pythonmysqldb:
     state: "present"
     Ubuntu:
-      1604: "python-mysqldb"
       1804: "python-mysqldb"
       2004: "python3-mysqldb"
     Debian:
-      9: "python-mysqldb"
       10: "python-mysqldb"
     CentOS:
       7: "MySQL-python"

@@ -9,8 +9,8 @@
 {# start Ubuntu section #}
 {% if var_value.1.Ubuntu is defined and ansible_distribution == "Ubuntu" %}
 {# start Xenial subsection #}
-{% if ansible_distribution_release == "xenial" and var_value.1.Ubuntu.xenial is defined %}
-{{ var_key }}{% if var_value.1.Ubuntu.xenial != "aspects_novalue" %}={{ var_value.1.Ubuntu.xenial }}{% endif %}
+{% if ansible_distribution_release == "focal" and var_value.1.Ubuntu.focal is defined %}
+{{ var_key }}{% if var_value.1.Ubuntu.focal != "aspects_novalue" %}={{ var_value.1.Ubuntu.focal }}{% endif %}
 {# end Xenial subsection #}
 {# start Bionic subsection #}
 {% elif ansible_distribution_release == "bionic" and var_value.1.Ubuntu.bionic is defined %}
@@ -23,8 +23,8 @@
 {% endif %}
 {# start Debian section #}
 {% elif var_value.1.Debian is defined and ansible_distribution == "Debian" %}
-{% if ansible_distribution_release == "stretch" and var_value.1.Debian.stretch is defined %}
-{{ var_key }}{% if var_value.1.Debian.stretch != "aspects_novalue" %}={{ var_value.1.Debian.stretch }}{% endif %}
+{% if ansible_distribution_release == "buster" and var_value.1.Debian.buster is defined %}
+{{ var_key }}{% if var_value.1.Debian.buster != "aspects_novalue" %}={{ var_value.1.Debian.buster }}{% endif %}
 {% elif var_value.1.default is defined %}
 {{ var_key }}{% if var_value.1.default != "aspects_novalue" %}={{ var_value.1.default }}{% endif %}
 {% endif %}
