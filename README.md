@@ -119,7 +119,8 @@ A dictionary/hash of packages to install. See the aspects_packages readme for de
             Debian:
               stretch: "aspects_novalue"
             Ubuntu:
-              xenial: "aspects_novalue"
+              jammy: "aspects_novalue"
+              focal: "aspects_novalue"
               bionic: "aspects_novalue"
       mysqld:
         bind-address:

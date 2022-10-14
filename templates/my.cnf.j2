@@ -8,10 +8,14 @@
 {% for var_key, var_value in group_value | dictsort(true) %}
 {# start Ubuntu section #}
 {% if var_value.1.Ubuntu is defined and ansible_distribution == "Ubuntu" %}
-{# start Xenial subsection #}
-{% if ansible_distribution_release == "focal" and var_value.1.Ubuntu.focal is defined %}
+{# start jammy subsection #}
+{% if ansible_distribution_release == "jammy" and var_value.1.Ubuntu.jammy is defined %}
+{{ var_key }}{% if var_value.1.Ubuntu.jammy != "aspects_novalue" %}={{ var_value.1.Ubuntu.jammy }}{% endif %}
+{# end jammy subsection #}
+{# start Focal subsection #}
+{% elif ansible_distribution_release == "focal" and var_value.1.Ubuntu.focal is defined %}
 {{ var_key }}{% if var_value.1.Ubuntu.focal != "aspects_novalue" %}={{ var_value.1.Ubuntu.focal }}{% endif %}
-{# end Xenial subsection #}
+{# end Focal subsection #}
 {# start Bionic subsection #}
 {% elif ansible_distribution_release == "bionic" and var_value.1.Ubuntu.bionic is defined %}
 {{ var_key }}{% if var_value.1.Ubuntu.bionic != "aspects_novalue" %}={{ var_value.1.Ubuntu.bionic }}{% endif %}

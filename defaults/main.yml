@@ -51,6 +51,7 @@ aspects_mysql_server_configuration:
           7: "/var/lib/mysql/mysql.sock"
         Ubuntu:
           focal: "/var/run/mysqld/mysqld.sock"
+          jammy: "/var/run/mysqld/mysqld.sock"
           bionic: "/var/run/mysqld/mysqld.sock"
     nice:
       enabled: True
@@ -77,6 +78,7 @@ aspects_mysql_server_configuration:
         Debian:
           buster: "aspects_novalue"
         Ubuntu:
+          jammy: "aspects_novalue"
           focal: "aspects_novalue"
           bionic: "aspects_novalue"
   mysqld:
@@ -97,6 +99,7 @@ aspects_mysql_server_configuration:
         CentOS:
           7: "/var/run/mariadb/mariadb.pid"
         Ubuntu:
+          jammy: "/var/run/mysqld/mysqld.pid"
           focal: "/var/run/mysqld/mysqld.pid"
           bionic: "/var/run/mysqld/mysqld.pid"
     socket:
@@ -108,6 +111,7 @@ aspects_mysql_server_configuration:
         CentOS:
           7: "/var/lib/mysql/mysql.sock"
         Ubuntu:
+          jammy: "/var/run/mysqld/mysqld.sock"
           focal: "/var/run/mysqld/mysqld.sock"
           bionic: "/var/run/mysqld/mysqld.sock"
     symbolic-links:
@@ -198,6 +202,7 @@ aspects_packages_packages:
     Ubuntu:
       1804: "mysql-server"
       2004: "mysql-server"
+      2204: "mysql-server"
     CentOS:
       7: "mariadb-server"
     Debian:
@@ -209,6 +214,7 @@ aspects_packages_packages:
     Ubuntu:
       1804: "mysql-client"
       2004: "mysql-client"
+      2204: "mysql-client"
     Debian:
       10: "default-mysql-client"
     CentOS:
@@ -218,8 +224,9 @@ aspects_packages_packages:
   pythonmysqldb:
     state: "present"
     Ubuntu:
-      1804: "python-mysqldb"
+      1804: "python3-mysqldb"
       2004: "python3-mysqldb"
+      2204: "python3-mysqldb"
     Debian:
       10: "python-mysqldb"
     CentOS:
